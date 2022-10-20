@@ -9,6 +9,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Hope') }} | @yield('page-title')</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('img/brand/favicon.ico')}}">
     <link rel="stylesheet" href="{{ asset('css/bootstrap-4.6.1/bootstrap.min.css') }}">
     <!-- FontAwesome -->
     <link href="{{ asset('css/fontawesome/all.min.css') }}" rel="stylesheet" type="text/css" />
