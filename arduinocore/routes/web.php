@@ -34,14 +34,5 @@ Route::middleware(['auth'])->group(function () {
     Route::put('usuarios', [App\Http\Controllers\UserController::class, 'update']);
     Route::delete("usuarios/{id}", [App\Http\Controllers\UserController::class, "destroy"]);
     
-    //perfiles
-    Route::get('perfiles', [App\Http\Controllers\PerfilController::class, 'index']);
-    Route::get('get-perfiles', [App\Http\Controllers\PerfilController::class, 'getPerfiles']);
-    Route::post('perfiles/create', [App\Http\Controllers\PerfilController::class, 'create']);
-    Route::post('perfiles/edit', [App\Http\Controllers\PerfilController::class, 'edit']);
-    Route::post('perfiles', [App\Http\Controllers\PerfilController::class, 'store']);
-    Route::put('perfiles', [App\Http\Controllers\PerfilController::class, 'update']);
-    Route::delete("perfiles/{id}", [App\Http\Controllers\PerfilController::class, "destroy"]);
-
 });
 

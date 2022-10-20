@@ -34,7 +34,27 @@ class DataLogController extends Controller
             $data = [
                 'code' => 400,
                 'status' => 'error',
-                'message' => 'Ocurrió un error al realizar la búsqueda.',
+                'message' => 'Ocurrió un error al insertar los datos.',
+            ];
+        }
+
+        return response()->json($data, $data['code']);
+    }
+
+    public function getDatos() {
+        $datos = DataLog::all();
+
+        if(is_object($datos)){
+            $data = [
+                'code' => 200,
+                'status' => 'success',
+                'datos' => $datos,
+            ];
+        } else {
+            $data = [
+                'code' => 400,
+                'status' => 'error',
+                'message' => 'Ocurrió un error al traer los datos.',
             ];
         }
 

@@ -19,3 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('datos', [App\Http\Controllers\Api\DataLogController::class, 'guardarDatos']);
+
+Route::get('get-datos', [App\Http\Controllers\Api\DataLogController::class, 'getDatos']);
