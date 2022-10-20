@@ -23,6 +23,7 @@
                                     <th scope="col">Sensor</th>
                                     <th scope="col">Temperatura</th>
                                     <th scope="col">Humedad</th>
+                                    <th scope="col">Fecha Registro</th>
                                     <!-- <th scope="col">Opciones</th> -->
                                 </tr>
                             </thead>
@@ -32,6 +33,7 @@
                                     <td>@{{ dato.sensor }}</td>
                                     <td>@{{ dato.temperatura | temperatura }}</td>
                                     <td>@{{ dato.humedad | humedad}}</td>
+                                    <td>@{{ dato.created_at | date:"MM/dd/yyyy 'at' h:mma"}}</td>
                                     <!-- <td>
                                         <button type="button" class="btn btn-sm btn-primary" ng-click="edit(dato)"><i class="fas fa-edit"></i></button>
                                         <button type="button" class="btn btn-sm btn-danger" ng-click="confirmarEliminar(dato)" ng-if="dato.id != {{ auth()->user()->id }}"><i class="fas fa-trash"></i></button>
