@@ -1,8 +1,9 @@
-var app = angular.module('home', []);
+var app = angular.module('home', ["angularUtils.directives.dirPagination"]);
 
 
 app.controller('home', function ($scope, $http) {
-
+    $scope.currentPage = 1;
+    $scope.pageSize = 10;  
 
     $scope.dato = {};
     $scope.datos = [];
