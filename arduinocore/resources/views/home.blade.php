@@ -43,7 +43,7 @@
                             </tbody>
                         </table>
                         <div class="float-right">
-                            @{{ usuarios.length }} Registros
+                            @{{ datos.length }} Registros
                         </div>
                         <div class="btn-toolbar " role="toolbar" aria-label="Calimax">
                             <dir-pagination-controls boundary-links="true" pagination-id="itemsPagination" on-page-change="pageChangeHandler(newPageNumber)">
