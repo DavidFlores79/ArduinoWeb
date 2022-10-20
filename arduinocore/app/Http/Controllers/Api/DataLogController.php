@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class DataLogController extends Controller
 {
     public function guardarDatos(Request $request)
-    {
+    { return $request;
         //validar el request
         $rules = [
             'sensor' => 'nullable|string|max:255',
@@ -42,12 +42,13 @@ class DataLogController extends Controller
     }
 
     public function getDatos() {
-        $datos = DataLog::all();
+        $datos = DataLog::orderBy('id', 'DESC')->get();
 
         if(is_object($datos)){
             $data = [
                 'code' => 200,
                 'status' => 'success',
+                'total' => "Se han encontrado: ".count($datos)." resultados.",
                 'datos' => $datos,
             ];
         } else {
