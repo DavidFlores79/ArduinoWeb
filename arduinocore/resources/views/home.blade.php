@@ -20,22 +20,22 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Fecha Creación</th>
-                                    <th scope="col">Opciones</th>
+                                    <th scope="col">Sensor</th>
+                                    <th scope="col">Temperatura</th>
+                                    <th scope="col">Humedad</th>
+                                    <!-- <th scope="col">Opciones</th> -->
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="dato in datos track by $index">
                                     <td>@{{ dato.id }}</td>
-                                    <td>@{{ dato.name }}</td>
-                                    <td>@{{ dato.email }}</td>
-                                    <td>@{{ dato.created_at | date }}</td>
-                                    <td>
+                                    <td>@{{ dato.sensor }}</td>
+                                    <td>@{{ dato.temperatura | temperatura }}</td>
+                                    <td>@{{ dato.humedad | humedad}}</td>
+                                    <!-- <td>
                                         <button type="button" class="btn btn-sm btn-primary" ng-click="edit(dato)"><i class="fas fa-edit"></i></button>
                                         <button type="button" class="btn btn-sm btn-danger" ng-click="confirmarEliminar(dato)" ng-if="dato.id != {{ auth()->user()->id }}"><i class="fas fa-trash"></i></button>
-                                    </td>
+                                    </td> -->
                                 </tr>
                             </tbody>
                         </table>

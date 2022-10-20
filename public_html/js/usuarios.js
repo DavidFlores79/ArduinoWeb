@@ -2,13 +2,8 @@ var app = angular.module('usuarios', []);
 
 
 app.controller('usuarios', function ($scope, $http) {
-    $scope.createForm = {};
-    $scope.editForm = {};
-    $scope.formulario_crear = [];
-    $scope.formulario_editar = [];
     $scope.dato = {};
     $scope.datos = [];
-    $scope.perfiles = [];
     
     $http({
         url: 'get-usuarios',
