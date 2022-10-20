@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 class DataLogController extends Controller
 {
     public function guardarDatos(Request $request)
-    { return $request;
+    {   
+        //return $request;
         //validar el request
         $rules = [
             'sensor' => 'nullable|string|max:255',
