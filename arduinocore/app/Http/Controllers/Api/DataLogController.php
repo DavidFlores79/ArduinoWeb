@@ -65,4 +65,8 @@ class DataLogController extends Controller
 
         return response()->json($data, $data['code']);
     }
+
+    public function getFechaActual() {
+        return Carbon::now()->toDateString();
+    }
 }
