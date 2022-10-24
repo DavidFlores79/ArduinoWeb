@@ -67,6 +67,6 @@ class DataLogController extends Controller
     }
 
     public function getFechaActual() {
-        return Carbon::now()->toDateString();
+        return Carbon::now()->format('Y-m-d H:i:m');
     }
 }
