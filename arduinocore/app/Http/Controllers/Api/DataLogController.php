@@ -44,7 +44,9 @@ class DataLogController extends Controller
     }
 
     public function getDatos() {
-        $datos = DataLog::where('created_at', '>=', Carbon::today()->toDateString())->orderBy('id', 'DESC')->get();
+        $currentDateTime = Carbon::now();
+        $newDateTime = Carbon::now()->subHours(5);
+        $datos = DataLog::where('created_at', '>=', $newDateTime->toDateString())->orderBy('id', 'DESC')->get();
 
         if(is_object($datos)){
             $data = [
