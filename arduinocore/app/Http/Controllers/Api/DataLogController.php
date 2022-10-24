@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\DataLog;
-use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -68,8 +67,8 @@ class DataLogController extends Controller
     }
 
     public function getFechaActual() {
-        $now = new DateTime();
-        $timestamp = $now->getTimestamp(); 
-        return $timestamp;
+        $currentDateTime = Carbon::now()->toDateTimeString();
+        $newDateTime = Carbon::now()->subHours(5);
+        return $newDateTime;
     }
 }
