@@ -43,7 +43,7 @@ class DataLogController extends Controller
     }
 
     public function getDatos() {
-        $datos = DataLog::orderBy('id', 'DESC')->get();
+        $datos = DataLog::orderBy('id', 'DESC')->where('created_at', '>=', date('Y-m-d').' 00:00:00')->get();
 
         if(is_object($datos)){
             $data = [

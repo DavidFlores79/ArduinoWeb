@@ -23,7 +23,7 @@
     <!-- ChartJs -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
     <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
-
+    @yield('styles')
 
 </head>
 
@@ -92,6 +92,8 @@
     <script src="{{ asset('js/ng-table.min.js') }}"></script>
     <!-- Angular File -->
     @yield('ngFile')
+    <!-- Scripts -->
+    @yield('scripts')
 </body>
 
 </html>
