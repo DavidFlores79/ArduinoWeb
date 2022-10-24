@@ -44,9 +44,7 @@ class DataLogController extends Controller
     }
 
     public function getDatos() {
-        $currentDateTime = Carbon::now()->format('Y-m-d H:i:m');
-        $newDateTime = Carbon::now()->subHours(5);
-        $datos = DataLog::where('created_at', '>=', $newDateTime->toDateString())->orderBy('created_at', 'DESC')->get();
+        $datos = DataLog::where('created_at', '>=', Carbon::today()->toDateString())->orderBy('created_at', 'DESC')->get();
 
         if(is_object($datos)){
             $data = [
@@ -68,7 +66,7 @@ class DataLogController extends Controller
 
     public function getFechaActual() {
         $currentDateTime = Carbon::now()->toDateTimeString();
-        $newDateTime = Carbon::now()->subHours(5);
+        $newDateTime = Carbon::now();
         return $newDateTime;
     }
 }
