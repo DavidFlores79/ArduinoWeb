@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\DataLog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class DataLogController extends Controller
 {
@@ -43,7 +44,7 @@ class DataLogController extends Controller
     }
 
     public function getDatos() {
-        $datos = DataLog::orderBy('id', 'DESC')->where('created_at', '>=', date('Y-m-d').' 00:00:00')->get();
+        $datos = DataLog::where('created_at', '>=', Carbon::today()->toDateString())->orderBy('id', 'DESC')->get();
 
         if(is_object($datos)){
             $data = [

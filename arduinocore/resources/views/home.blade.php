@@ -33,7 +33,7 @@
                                 <tr ng-repeat="dato in datos track by $index">
                                 <tr dir-paginate="dato in datosFiltrados = (datos|filter:searchQuery|orderBy:sortType:sortReverse)|itemsPerPage:pageSize" current-page="currentPage" pagination-id="itemsPagination">
                                     <td>@{{ dato.id }}</td>
-                                    <td>@{{ dato.created_at | date:"hh:mma:ss"}}</td>
+                                    <td>@{{ dato.created_at | date:"hh:mm:ssa"}}</td>
                                     <td>@{{ dato.sensor }}</td>
                                     <td>@{{ dato.temperatura | number : 2 | temperatura }}</td>
                                     <td>@{{ dato.humedad | number : 2 | humedad}}</td>
