@@ -13,7 +13,7 @@
                     <h5 class="font-weight-bold centers-title my-2 my-sm-0">@yield('page-title')</h5>
                     <input type="text" name="buscar" class="search-query form-control col-12 col-sm-3 " placeholder="Buscar..." ng-model="searchQuery">
                 </div>
-
+                <div class="ct-chart"></div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table">
@@ -55,12 +55,73 @@
         </div>
     </div>
 </div>
-
-
-
 @endsection
 
 @section('ngFile')
 <script src="{{ asset('js/home.js') }}"></script>
+@endsection
 
+@section('scripts')
+<script>
+    let tempData = {
+        series: [23.5],
+        labels: ['Temperatura']
+    };
+    let humData = {
+        series: [85],
+        labels: ['Humedad']
+    };
+
+    let chartTemp = new Chartist.Pie('.ct-chart', tempData, {
+        donut: true,
+        donutWidth: 20,
+        donutSolid: true,
+        startAngle: 270,
+        total: 200,
+        showLabel: true,
+        width: 300,
+        height: 200,
+        labelInterpolationFnc: function(value, idx) {
+            var centigrades = ' ºC';
+            return tempData.labels[idx] + ' ' + tempData.series[idx] + ' ' + centigrades;
+        }
+    });
+
+    let chartHum = new Chartist.Pie('.ct-chart1', humData, {
+        donut: true,
+        donutWidth: 20,
+        donutSolid: true,
+        startAngle: 270,
+        total: 200,
+        showLabel: true,
+        width: 300,
+        height: 200,
+        labelInterpolationFnc: function(value, idx) {
+            var percentage = '%';
+            return humData.labels[idx] + ' ' + humData.series[idx] + ' ' + percentage;
+        }
+    });
+
+    // Set chart color
+    // chartTemp.on('draw', function(data) {
+    //     data.element._node.setAttribute('style', 'fill: green');
+    // });
+    // chartHum.on('draw', function(data) {
+    //     data.element._node.setAttribute('style', 'fill: orange');
+    // });
+</script>
+@endsection
+
+@section('styles')
+<style>
+    .ct-chart .ct-slice-donut-solid {
+        stroke: lightgray !important;
+        fill: greenyellow !important;
+    }
+
+    .ct-chart .ct-label,
+    .ct-chart1 .ct-label {
+        fill: rgb(0, 0, 0);
+    }
+</style>
 @endsection
