@@ -8,6 +8,8 @@ app.controller('home', function ($interval, $scope, $http) {
     $scope.dato = {};
     $scope.datos = [];
     $scope.tempData = {};
+    $scope.series = [];
+    $scope.data = [];
 
     var interval;
 
@@ -23,6 +25,34 @@ app.controller('home', function ($interval, $scope, $http) {
             console.log('index', response);
             $scope.datos = response.data.datos;
             $scope.graficar($scope.datos[0]);
+
+            let series = [
+                {
+                    name: 'series-1',
+                    data: []
+                },
+            ];
+
+            console.log('scope data series', series);
+
+            $scope.datos.forEach(registro => {
+                series[0].data.push({ x: registro.created_at, y: registro.temperatura });
+            });
+
+
+            $scope.series = {
+                series: series
+            }, {
+                axisX: {
+                    type: Chartist.FixedScaleAxis,
+                    divisor: 5,
+                    labelInterpolationFnc: function (value) {
+                        console.log(value);
+                        return moment(value).format('MMM D');
+                    }
+                }
+            };
+            var chart = new Chartist.Line('.ct-chart', $scope.series);
         },
         function errorCallback(response) {
             console.log(response);
@@ -77,11 +107,11 @@ app.controller('home', function ($interval, $scope, $http) {
             },
             function errorCallback(response) {
                 console.log(response);
-                // swal(
-                //     bitacora.titulo,
-                //     response.data.message,
-                //     tiposDeMensaje.error
-                // );
+                swal(
+                    'Mensaje del Sistema',
+                    response.data.message,
+                    tiposDeMensaje.error
+                );
             }
         );
     }
@@ -123,13 +153,6 @@ app.controller('home', function ($interval, $scope, $http) {
                 return data.labels[idx] + ' ' + data.series[idx] + ' ' + centigrades;
             }
         });
-        // Set chart color
-        // chartTemp.on('draw', function (data) {
-        //     data.element._node.setAttribute('style', 'fill: green');
-        // });
-        // chartHum.on('draw', function (data) {
-        //     data.element._node.setAttribute('style', 'fill: orange');
-        // });
     }
     // Graficas 
 

@@ -10,12 +10,15 @@
         <div class="col-md-10">
             <div class="card">
                 <div class="card-header bg-default d-flex flex-column flex-sm-row justify-content-between ">
-                    <h5 class="font-weight-bold centers-title my-2 my-sm-0">@yield('page-title')</h5>
-                    <input type="text" name="buscar" class="search-query form-control col-12 col-sm-3 " placeholder="Buscar..." ng-model="searchQuery">
+                    <div class=" centers-title my-2 my-sm-0">
+                        <h5 class="font-weight-bold">@yield('page-title')</h5>
+                        <small class="text-muted">Hoy {{ date('d-M-Y') }}</small>
+                    </div>
+                    <input type="text" name="buscar" class="search-query form-control col-12 col-sm-4 col-xs-3 " placeholder="Buscar..." ng-model="searchQuery">
                 </div>
                 <div class="card-body">
                     <div class="my-2 float-right text-muted small">
-                        @{{ datos.length }} Registros
+                        @{{ datos.length }} registros
                     </div>
                     <div class="table-responsive">
                         <table class="table">
@@ -50,6 +53,7 @@
                         </div>
                     </div>
                     <div class="row text-center">
+                        <div class="ct-chart col-md-12 my-4"></div>
                         <div class="ct-chart1 col-md-6"></div>
                         <div class="ct-chart2 col-md-6"></div>
                     </div>
@@ -62,6 +66,12 @@
 
 @section('ngFile')
 <script src="{{ asset('js/home.js') }}"></script>
+@endsection
+
+@section('scripts')
+<script>
+    moment().format();
+</script>
 @endsection
 
 @section('styles')

@@ -20,6 +20,8 @@
     <script src="{{ asset('js/angular-1.8.2/angular.min.js') }}"></script>
     <!-- Sweet Alert -->
     <script src="{{ asset('js/sweetalert2.1.2/sweetalert.min.js') }}"></script>
+    <!-- Moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <!-- ChartJs -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
     <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
