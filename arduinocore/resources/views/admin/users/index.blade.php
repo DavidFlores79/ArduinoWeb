@@ -92,7 +92,14 @@
             </div>
             <div class="modal-body">
                 <form ng-submit="update()" class="was-validated">
-
+                    <div class="form-group">
+                        <label for="name">Nombre</label>
+                        <input class="form-control" type="text" name="name" ng-model="editForm.name" id="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input class="form-control" type="email" name="email" ng-model="editForm.email" id="email">
+                    </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
                     </div>

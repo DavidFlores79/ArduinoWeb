@@ -80,7 +80,7 @@ class UserController extends Controller
             $data = [
                 'code' => 400,
                 'status' => 'error',
-                'message' => 'Se ha producido un error al guardar.'.$th,
+                'message' => 'Se ha producido un error al guardar.'.$th->getMessage(),
             ];
             return response()->json($data, $data['code']);
         }
@@ -123,7 +123,8 @@ class UserController extends Controller
                     'code' => 200,
                     'status' => 'success',
                     'message' => 'Usuario editado.',
-                    'user' => $user->load('perfil'),
+                    // 'user' => $user->load('perfil'),
+                    'user' => $user,
                 ];
 
                 return response()->json($data, $data['code']);
@@ -139,7 +140,7 @@ class UserController extends Controller
             $data = [
                 'code' => 404,
                 'status' => 'error',
-                'message' => 'Error al actualizar.'.$th,
+                'message' => 'Error al actualizar.'.$th->getMessage(),
             ];
             return response()->json($data, $data['code']);
         }

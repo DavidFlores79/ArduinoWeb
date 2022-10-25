@@ -4,7 +4,8 @@ var app = angular.module('usuarios', []);
 app.controller('usuarios', function ($scope, $http) {
     $scope.dato = {};
     $scope.datos = [];
-    $scope.createForm = [];
+    $scope.createForm = {};
+    $scope.editForm = {};
     
     $http({
         url: 'get-usuarios',
@@ -126,9 +127,10 @@ app.controller('usuarios', function ($scope, $http) {
     }
 
     $scope.edit = function (usuario) {
-        // if(usuario.name) $scope.editForm['name'] = usuario.name;
-        // if(usuario.email) $scope.editForm['email'] = usuario.email;
-        // if(usuario.id) $scope.editForm['id'] = usuario.id;
+        console.log('usuario', usuario);
+        if(usuario.name) $scope.editForm['name'] = usuario.name;
+        if(usuario.email) $scope.editForm['email'] = usuario.email;
+        if(usuario.id) $scope.editForm['id'] = usuario.id;
         // if(usuario.direccion) $scope.editForm['direccion'] = usuario.direccion;
         // if(usuario.edad) $scope.editForm['edad'] = parseInt(usuario.edad);
         // if(usuario.perfil_id) $scope.editForm['perfil_id'] = usuario.perfil_id;
