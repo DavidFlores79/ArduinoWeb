@@ -93,12 +93,12 @@
             <div class="modal-body">
                 <form ng-submit="update()" class="was-validated">
                     <div class="form-group">
-                        <label for="name">Nombre</label>
-                        <input class="form-control" type="text" name="name" ng-model="editForm.name" id="name">
+                        <label for="edit-name">Nombre</label>
+                        <input class="form-control" type="text" name="edit-name" ng-model="editForm.name" id="edit-name">
                     </div>
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input class="form-control" type="email" name="email" ng-model="editForm.email" id="email">
+                        <label for="edit-email">Email</label>
+                        <input class="form-control" type="email" name="edit-email" ng-model="editForm.email" id="edit-email">
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
