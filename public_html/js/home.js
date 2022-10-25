@@ -6,6 +6,7 @@ app.controller("home", function ($interval, $scope, $http) {
 
   $scope.dato = {};
   $scope.datos = [];
+  $scope.registros = [];
   $scope.tempData = {};
 
   $scope.datosGrafica = [];
@@ -28,14 +29,16 @@ app.controller("home", function ($interval, $scope, $http) {
       $scope.datos = response.data.datos;
       $scope.graficar($scope.datos[0]);
 
-      $scope.datos.forEach((registro) => {
-        $scope.temperatura.push(registro.temperatura);
-        $scope.humedad.push(registro.humedad);
-        $scope.y.push(moment(new Date(registro.created_at)).format("hh:mm:ss"));
+      $scope.registros = $scope.datos.map((registro, index) => {
+        currentTime = new Date(registro.created_at);
+        if (currentTime.getHours() != $scope.y.at(-1)) {
+          $scope.temperatura.push(registro.temperatura);
+          $scope.humedad.push(registro.humedad);
+          $scope.y.push(currentTime.getHours());
+        }
       });
 
       $scope.mostrarGraficaLineas();
-
     },
     function errorCallback(response) {
       console.log(response);
@@ -89,14 +92,15 @@ app.controller("home", function ($interval, $scope, $http) {
 
         $scope.temperatura = [];
         $scope.y = [];
-        $scope.humedad = [];      
+        $scope.humedad = [];
 
-        $scope.datos.forEach((registro) => {
-          $scope.temperatura.push(registro.temperatura);
-          $scope.humedad.push(registro.humedad);
-          $scope.y.push(
-            moment(new Date(registro.created_at)).format("hh:mm:ss")
-          );
+        $scope.registros = $scope.datos.map((registro, index) => {
+          currentTime = new Date(registro.created_at);
+          if (currentTime.getHours() != $scope.y.at(-1)) {
+            $scope.temperatura.push(registro.temperatura);
+            $scope.humedad.push(registro.humedad);
+            $scope.y.push(currentTime.getHours());
+          }
         });
 
         $scope.mostrarGraficaLineas();
@@ -152,23 +156,23 @@ app.controller("home", function ($interval, $scope, $http) {
 
   $scope.mostrarGraficaLineas = function () {
     new Chartist.Line(
-        ".ct-chart",
-        {
-          labels: $scope.y,
-          series: [$scope.temperatura, $scope.humedad],
+      ".ct-chart",
+      {
+        labels: $scope.y,
+        series: [$scope.temperatura, $scope.humedad],
+      },
+      {
+        high: 100,
+        low: 0,
+        fullWidth: true,
+        // As this is axis specific we need to tell Chartist to use whole numbers only on the concerned axis
+        axisY: {
+          onlyInteger: false,
+          offset: 20,
         },
-        {
-          high: 100,
-          low: 0,
-          fullWidth: true,
-          // As this is axis specific we need to tell Chartist to use whole numbers only on the concerned axis
-          axisY: {
-            onlyInteger: false,
-            offset: 20,
-          },
-        }
-      );
-  }
+      }
+    );
+  };
   // Graficas
 });
 
