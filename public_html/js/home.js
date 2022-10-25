@@ -29,15 +29,6 @@ app.controller("home", function ($interval, $scope, $http) {
       $scope.datos = response.data.datos;
       $scope.graficar($scope.datos[0]);
 
-      $scope.registros = $scope.datos.map((registro, index) => {
-        currentTime = new Date(registro.created_at);
-        if (currentTime.getHours() != $scope.y.at(-1)) {
-          $scope.temperatura.push(registro.temperatura);
-          $scope.humedad.push(registro.humedad);
-          $scope.y.push(currentTime.getHours());
-        }
-      });
-
       $scope.mostrarGraficaLineas();
     },
     function errorCallback(response) {
@@ -94,15 +85,6 @@ app.controller("home", function ($interval, $scope, $http) {
         $scope.y = [];
         $scope.humedad = [];
 
-        $scope.registros = $scope.datos.map((registro, index) => {
-          currentTime = new Date(registro.created_at);
-          if (currentTime.getHours() != $scope.y.at(-1)) {
-            $scope.temperatura.push(registro.temperatura);
-            $scope.humedad.push(registro.humedad);
-            $scope.y.push(currentTime.getHours());
-          }
-        });
-
         $scope.mostrarGraficaLineas();
       },
       function errorCallback(response) {
@@ -155,6 +137,15 @@ app.controller("home", function ($interval, $scope, $http) {
   };
 
   $scope.mostrarGraficaLineas = function () {
+    $scope.registros = $scope.datos.reverse().map((registro, index) => {
+      currentTime = new Date(registro.created_at);
+      if (currentTime.getHours() != $scope.y.at(-1)) {
+        $scope.temperatura.push(registro.temperatura);
+        $scope.humedad.push(registro.humedad);
+        $scope.y.push(currentTime.getHours());
+      }
+    });
+
     new Chartist.Line(
       ".ct-chart",
       {
