@@ -108,14 +108,14 @@ app.controller("home", function ($interval, $scope, $http) {
       chart = ".ct-chart1";
       dataTemp.labels = ["Temperatura"];
       dataTemp.series = [dato.temperatura];
-      $scope.mostrarGrafica(chart, dataTemp);
+      if(dataTemp.series.length > 0) $scope.mostrarGrafica(chart, dataTemp);
     }
 
     if (dato.humedad) {
       chart = ".ct-chart2";
       dataHum.labels = ["Humedad"];
       dataHum.series = [dato.humedad];
-      $scope.mostrarGrafica(chart, dataHum);
+      if(dataTemp.series.length > 0) $scope.mostrarGrafica(chart, dataHum);
     }
   };
 
@@ -137,32 +137,33 @@ app.controller("home", function ($interval, $scope, $http) {
   };
 
   $scope.mostrarGraficaLineas = function () {
-   $scope.datos.map( registro => {
+    $scope.datos.map((registro) => {
       currentTime = new Date(registro.created_at);
       if (currentTime.getHours() != $scope.y.at(-1)) {
         $scope.temperatura.push(registro.temperatura);
-        $scope.humedad.push(registro.humedad);
+        // $scope.humedad.push(registro.humedad);
         $scope.y.push(currentTime.getHours());
       }
     });
 
-    new Chartist.Line(
-      ".ct-chart",
-      {
-        labels: $scope.y.reverse(),
-        series: [$scope.temperatura.reverse(), $scope.humedad].reverse(),
-      },
-      {
-        high: 100,
-        low: 0,
-        fullWidth: true,
-        // As this is axis specific we need to tell Chartist to use whole numbers only on the concerned axis
-        axisY: {
-          onlyInteger: false,
-          offset: 20,
+    if ($scope.y.length > 0)
+      new Chartist.Line(
+        ".ct-chart",
+        {
+          labels: $scope.y.reverse(),
+          series: [$scope.temperatura.reverse()], //, $scope.humedad.reverse()],
         },
-      }
-    );
+        {
+          high: 45,
+          low: 20,
+          fullWidth: true,
+          // As this is axis specific we need to tell Chartist to use whole numbers only on the concerned axis
+          axisY: {
+            onlyInteger: false,
+            offset: 20,
+          },
+        }
+      );
   };
   // Graficas
 });
