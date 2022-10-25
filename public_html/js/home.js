@@ -137,7 +137,7 @@ app.controller("home", function ($interval, $scope, $http) {
   };
 
   $scope.mostrarGraficaLineas = function () {
-    $scope.registros = $scope.datos.reverse().map((registro, index) => {
+   $scope.datos.map( registro => {
       currentTime = new Date(registro.created_at);
       if (currentTime.getHours() != $scope.y.at(-1)) {
         $scope.temperatura.push(registro.temperatura);
@@ -149,8 +149,8 @@ app.controller("home", function ($interval, $scope, $http) {
     new Chartist.Line(
       ".ct-chart",
       {
-        labels: $scope.y,
-        series: [$scope.temperatura, $scope.humedad],
+        labels: $scope.y.reverse(),
+        series: [$scope.temperatura.reverse(), $scope.humedad].reverse(),
       },
       {
         high: 100,
