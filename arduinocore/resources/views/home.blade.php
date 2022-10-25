@@ -18,7 +18,12 @@
                 </div>
                 <div class="card-body">
                     <div class="my-2 float-right text-muted small">
-                        @{{ datos.length }} registros
+                        <span class="mx-2">@{{ datos.length }} registros</span>
+                        <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#sensoresModal">
+                            <!-- <i class="fas fa-chart-bar"></i> -->
+                            <!-- <i class="fas fa-chart-pie"></i> -->
+                            <i class="far fa-chart-bar"></i>
+                        </button>
                     </div>
                     <div class="table-responsive">
                         <table class="table">
@@ -36,7 +41,7 @@
                                 <tr ng-repeat="dato in datos track by $index">
                                 <tr dir-paginate="dato in datosFiltrados = (datos|filter:searchQuery|orderBy:sortType:sortReverse)|itemsPerPage:pageSize" current-page="currentPage" pagination-id="itemsPagination">
                                     <td>@{{ dato.id }}</td>
-                                    <td>@{{ dato.created_at | date:"hh:mm:ssa"}}</td>
+                                    <td>@{{ dato.created_at | date:"hh:mm:ss a"}}</td>
                                     <td>@{{ dato.sensor }}</td>
                                     <td>@{{ dato.temperatura | number : 2 | temperatura }}</td>
                                     <td>@{{ dato.humedad | number : 2 | humedad}}</td>
@@ -52,11 +57,29 @@
                             </dir-pagination-controls>
                         </div>
                     </div>
-                    <div class="row text-center">
-                        <div class="ct-chart col-md-12 my-4"></div>
-                        <div class="ct-chart1 col-md-6"></div>
-                        <div class="ct-chart2 col-md-6"></div>
-                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="sensoresModal" tabindex="-1" aria-labelledby="sensoresModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="sensoresModalLabel">Gráficas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row text-center">
+                    <div class="col-12"><span class="text-muted">Por hora del día {{ date('d-M-Y') }}</span></div>
+                    <div class="ct-chart col-md-12 my-4"></div>
+                    <div class="col-12"><span class="text-muted">Temperatura y Humedad (últimas lecturas)</span></div>
+                    <div class="ct-chart1 col-md-6"></div>
+                    <div class="ct-chart2 col-md-6"></div>
                 </div>
             </div>
         </div>
@@ -82,6 +105,10 @@
 
     .ct-chart2 .ct-chart-donut .ct-slice-donut-solid {
         fill: rgba(30, 105, 166, 0.6)
+    }
+
+    .fa-chart-bar {
+        font-size: 18px;
     }
 </style>
 @endsection
