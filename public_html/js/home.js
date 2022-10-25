@@ -13,6 +13,8 @@ app.controller("home", function ($interval, $scope, $http) {
   $scope.temperatura = [];
   $scope.y = [];
   $scope.humedad = [];
+  $scope.min = 20;
+  $scope.max = 50;
 
   var interval;
 
@@ -146,24 +148,32 @@ app.controller("home", function ($interval, $scope, $http) {
       }
     });
 
-    if ($scope.y.length > 0)
-      new Chartist.Line(
-        ".ct-chart",
-        {
-          labels: $scope.y.reverse(),
-          series: [$scope.temperatura.reverse()], //, $scope.humedad.reverse()],
-        },
-        {
-          high: 45,
-          low: 20,
-          fullWidth: true,
-          // As this is axis specific we need to tell Chartist to use whole numbers only on the concerned axis
-          axisY: {
-            onlyInteger: false,
-            offset: 20,
+    if ($scope.y.length > 0) {
+
+        $scope.min = Math.min( ...$scope.temperatura );
+        $scope.max = Math.max( ...$scope.temperatura );;
+        console.log('min temp', $scope.min);
+        console.log('max temp', $scope.max);
+
+        new Chartist.Line(
+          ".ct-chart",
+          {
+            labels: $scope.y.reverse(),
+            series: [$scope.temperatura.reverse()], //, $scope.humedad.reverse()],
           },
-        }
-      );
+          {
+            high: $scope.max,
+            low: $scope.min,
+            fullWidth: true,
+            // As this is axis specific we need to tell Chartist to use whole numbers only on the concerned axis
+            axisY: {
+              onlyInteger: false,
+              offset: 20,
+            },
+          }
+        );
+    }
+    
   };
   // Graficas
 });
