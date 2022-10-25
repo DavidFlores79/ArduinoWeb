@@ -4,6 +4,7 @@ var app = angular.module('usuarios', []);
 app.controller('usuarios', function ($scope, $http) {
     $scope.dato = {};
     $scope.datos = [];
+    $scope.createForm = [];
     
     $http({
         url: 'get-usuarios',
@@ -16,7 +17,7 @@ app.controller('usuarios', function ($scope, $http) {
         function successCallback(response) {
             console.log('index', response);
             $scope.datos = response.data.users;
-            $scope.perfiles = response.data.perfiles;
+            // $scope.perfiles = response.data.perfiles;
         },
         function errorCallback(response) {
             console.log(response);
@@ -52,8 +53,8 @@ app.controller('usuarios', function ($scope, $http) {
             function successCallback(response) {
                 console.log(response);
                 $scope.formulario_crear = response.data.formulario_crear;
-                $scope.createForm.estatus = true;
-                $scope.createForm.visible = true;
+                // $scope.createForm.estatus = true;
+                // $scope.createForm.visible = true;
                 $('#agregarModal').modal('show');
                 // setTimeout(() => {
                 //     $('#createForm').trigger('reset');
@@ -125,14 +126,14 @@ app.controller('usuarios', function ($scope, $http) {
     }
 
     $scope.edit = function (usuario) {
-        if(usuario.name) $scope.editForm['name'] = usuario.name;
-        if(usuario.email) $scope.editForm['email'] = usuario.email;
-        if(usuario.id) $scope.editForm['id'] = usuario.id;
-        if(usuario.direccion) $scope.editForm['direccion'] = usuario.direccion;
-        if(usuario.edad) $scope.editForm['edad'] = parseInt(usuario.edad);
-        if(usuario.perfil_id) $scope.editForm['perfil_id'] = usuario.perfil_id;
-        $scope.editForm.estatus = (usuario.estatus) ? true:false;
-        $scope.editForm.visible = (usuario.visible) ? true:false;
+        // if(usuario.name) $scope.editForm['name'] = usuario.name;
+        // if(usuario.email) $scope.editForm['email'] = usuario.email;
+        // if(usuario.id) $scope.editForm['id'] = usuario.id;
+        // if(usuario.direccion) $scope.editForm['direccion'] = usuario.direccion;
+        // if(usuario.edad) $scope.editForm['edad'] = parseInt(usuario.edad);
+        // if(usuario.perfil_id) $scope.editForm['perfil_id'] = usuario.perfil_id;
+        // $scope.editForm.estatus = (usuario.estatus) ? true:false;
+        // $scope.editForm.visible = (usuario.visible) ? true:false;
         
         console.log('EditForm', $scope.editForm);
         $http({
