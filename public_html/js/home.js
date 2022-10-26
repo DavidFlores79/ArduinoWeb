@@ -4,16 +4,10 @@ app.controller("home", function ($interval, $scope, $http) {
   $scope.currentPage = 1;
   $scope.pageSize = 10;
 
-  $scope.dato = {};
   $scope.datos = [];
-  $scope.registros = [];
-  $scope.tempData = {};
 
-  $scope.datosGrafica = [];
-  $scope.temperatura = [];
   $scope.y = [];
   for (var i = 0; i <= 23; i++) $scope.y.push(i);
-  $scope.humedad = [];
   $scope.min = 20;
   $scope.max = 50;
 
@@ -96,8 +90,8 @@ app.controller("home", function ($interval, $scope, $http) {
 
   // Graficas
 
-  let dataTemp = {};
-  let dataHum = {};
+  $scope.dataTemp = {};
+  $scope.dataHum = {};
 
   $('#sensoresModal').on('shown.bs.modal', function () {
     $scope.mostrarGraficaLineas();
@@ -106,16 +100,16 @@ app.controller("home", function ($interval, $scope, $http) {
   $scope.graficar = function (dato) {
     if (dato.temperatura) {
       chart = ".ct-chart1";
-      dataTemp.labels = ["Temperatura"];
-      dataTemp.series = [dato.temperatura];
-      if (dataTemp.series.length > 0) $scope.mostrarGrafica(chart, dataTemp);
+      $scope.dataTemp.labels = ["Temperatura"];
+      $scope.dataTemp.series = [dato.temperatura];
+      if ($scope.dataTemp.series.length > 0) $scope.mostrarGrafica(chart, $scope.dataTemp);
     }
 
     if (dato.humedad) {
       chart = ".ct-chart2";
-      dataHum.labels = ["Humedad"];
-      dataHum.series = [dato.humedad];
-      if (dataTemp.series.length > 0) $scope.mostrarGrafica(chart, dataHum);
+      $scope.dataHum.labels = ["Humedad"];
+      $scope.dataHum.series = [dato.humedad];
+      if ($scope.dataHum.series.length > 0) $scope.mostrarGrafica(chart, $scope.dataHum);
     }
   };
 
@@ -156,8 +150,8 @@ app.controller("home", function ($interval, $scope, $http) {
 
     if ($scope.temperaturaDHT11.length > 0 || $scope.temperaturaDHT11.length > 0) {
 
-      $scope.min = Math.min(...$scope.temperaturas);
-      $scope.max = Math.max(...$scope.temperaturas);
+      if(Math.min(...$scope.temperaturas)) $scope.min = Math.min(...$scope.temperaturas);
+      if(Math.max(...$scope.temperaturas)) $scope.max = Math.max(...$scope.temperaturas);
       // console.log('min temp', $scope.min);
       // console.log('max temp', $scope.max);
       // console.log('dht11', $scope.temperaturaDHT11);

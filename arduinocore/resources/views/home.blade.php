@@ -126,5 +126,21 @@
         font-size: small;
         font-weight: bold;
     }
+
+    @media (max-width: 767px) {
+        span.ct-label.ct-horizontal {
+            font-size: 10px;
+        }
+        .dht-11, .dht-22 {
+            font-size: smaller;
+        }
+
+    }
+    @media (max-width: 480px) {
+        span.ct-label.ct-horizontal {
+            font-size: 8px;
+        }
+    }
+
 </style>
 @endsection
