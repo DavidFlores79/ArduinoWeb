@@ -161,6 +161,8 @@ app.controller("home", function ($interval, $scope, $http) {
       $scope.max = (Math.max(...$scope.temperaturaDHT11) + Math.max(...$scope.temperaturaDHT22)) /2;
       console.log('min temp', $scope.min);
       console.log('max temp', $scope.max);
+      console.log('DHT11', $scope.temperaturaDHT11);
+      console.log('DHT22', $scope.temperaturaDHT22);
 
       new Chartist.Line(
         ".ct-chart",
