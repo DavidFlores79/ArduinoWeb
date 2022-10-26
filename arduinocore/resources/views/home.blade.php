@@ -75,10 +75,10 @@
             </div>
             <div class="modal-body">
                 <div class="row text-center">
-                    <div class="col-12"><span class="text-muted">Por hora del día {{ date('d-M-Y') }}</span></div>
+                    <div class="col-12 my-3"><span class="text-muted">Por hora del día {{ date('d-M-Y') }}</span></div>
                     <div class="ml-3">
-                        <div class="dht-11" ng-if="temperaturaDHT11.length > 0">--- DHT-11</div>
-                        <div class="dht-22" ng-if="temperaturaDHT22.length > 0">--- DHT-22</div>
+                        <div class="dht-11" ng-if="temperaturaDHT11.length > 0"><i class="fas fa-thermometer-three-quarters"></i> DHT-11</div>
+                        <div class="dht-22" ng-if="temperaturaDHT22.length > 0"><i class="fas fa-thermometer-three-quarters"></i> DHT-22</div>
                     </div>
 
                     <div class="ct-chart col-md-12 my-4"></div>
