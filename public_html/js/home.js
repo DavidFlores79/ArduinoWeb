@@ -12,6 +12,7 @@ app.controller("home", function ($interval, $scope, $http) {
   $scope.datosGrafica = [];
   $scope.temperatura = [];
   $scope.y = [];
+  for (var i = 0; i <= 23; i++) $scope.y.push(i);
   $scope.humedad = [];
   $scope.min = 20;
   $scope.max = 50;
@@ -29,7 +30,7 @@ app.controller("home", function ($interval, $scope, $http) {
     function successCallback(response) {
       console.log("index", response);
       $scope.datos = [...response.data.datos];
-      $scope.graficar($scope.datos[0]);
+      $scope.graficar( $scope.datos.find(e => true) ); //graficar primer dato 
     },
     function errorCallback(response) {
       console.log(response);
@@ -79,8 +80,7 @@ app.controller("home", function ($interval, $scope, $http) {
     }).then(
       function successCallback(response) {
         $scope.datos = [...response.data.datos];
-        $scope.graficar($scope.datos[0]);
-
+        $scope.graficar( $scope.datos.find(e => true) );
         $scope.mostrarGraficaLineas();
       },
       function errorCallback(response) {
@@ -100,7 +100,6 @@ app.controller("home", function ($interval, $scope, $http) {
   let dataHum = {};
 
   $('#sensoresModal').on('shown.bs.modal', function () {
-    console.log('hola mundo!');
     $scope.mostrarGraficaLineas();
   })
 
@@ -139,31 +138,37 @@ app.controller("home", function ($interval, $scope, $http) {
 
   $scope.mostrarGraficaLineas = function () {
 
-    $scope.temperatura = [];
-    $scope.y = [];
-    $scope.humedad = [];
+    $scope.temperaturaDHT11 = [];
+    $scope.temperaturaDHT22 = [];
+    $scope.temperaturas = [];
 
     $scope.datos.map((registro) => {
+
+      $scope.temperaturas.push(registro.temperatura);
+
       currentTime = new Date(registro.created_at);
       if (currentTime.getHours() != $scope.y.at(-1)) {
-        $scope.temperatura.push(registro.temperatura);
-        // $scope.humedad.push(registro.humedad);
-        $scope.y.push(currentTime.getHours());
+        if(registro.sensor.includes('DHT11')) $scope.temperaturaDHT11[currentTime.getHours()] = registro.temperatura;
+        if(registro.sensor.includes('DHT22')) $scope.temperaturaDHT22[currentTime.getHours()] = registro.temperatura;
       }
+
     });
 
-    if ($scope.y.length > 0) {
+    if ($scope.temperaturaDHT11.length > 0 || $scope.temperaturaDHT11.length > 0) {
 
-      $scope.min = Math.min(...$scope.temperatura);
-      $scope.max = Math.max(...$scope.temperatura);;
-      console.log('min temp', $scope.min);
-      console.log('max temp', $scope.max);
+      $scope.min = Math.min(...$scope.temperaturas);
+      $scope.max = Math.max(...$scope.temperaturas);
+      // console.log('min temp', $scope.min);
+      // console.log('max temp', $scope.max);
+      // console.log('dht11', $scope.temperaturaDHT11);
+      // console.log('dht22', $scope.temperaturaDHT22);
+      // console.log('eje y', $scope.y);
 
       new Chartist.Line(
         ".ct-chart",
         {
-          labels: $scope.y.reverse(),
-          series: [$scope.temperatura.reverse()], //, $scope.humedad.reverse()],
+          labels: $scope.y,
+          series: [$scope.temperaturaDHT11, $scope.temperaturaDHT22], //, $scope.humedad.reverse()],
         },
         {
           high: $scope.max,
