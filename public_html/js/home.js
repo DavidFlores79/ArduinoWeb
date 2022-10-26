@@ -148,10 +148,15 @@ app.controller("home", function ($interval, $scope, $http) {
       
       currentTime = new Date(registro.created_at);
       if (currentTime.getHours() != $scope.y.at(-1)) {
-        (registro.sensor.includes('DHT11')) ? $scope.temperaturaDHT11.push(registro.temperatura) : $scope.temperaturaDHT11.push(0);
-        (registro.sensor.includes('DHT22')) ? $scope.temperaturaDHT22.push(registro.temperatura) : $scope.temperaturaDHT22.push(0);
-        // $scope.humedad.push(registro.humedad);
-        $scope.y.push(currentTime.getHours());
+        if (registro.sensor.includes('DHT11')) {
+          $scope.temperaturaDHT11.push(registro.temperatura);
+          $scope.temperaturaDHT22.push(0.1);
+          $scope.y.push(currentTime.getHours());
+        } else if (registro.sensor.includes('DHT22')) {
+          $scope.temperaturaDHT22.push(registro.temperatura);
+          $scope.temperaturaDHT11.push(0.1);
+          $scope.y.push(currentTime.getHours());
+        }
       }
     });
 
