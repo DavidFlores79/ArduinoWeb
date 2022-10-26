@@ -139,57 +139,36 @@ app.controller("home", function ($interval, $scope, $http) {
 
   $scope.mostrarGraficaLineas = function () {
 
-    $scope.temperaturaDHT11 = [];
-    $scope.temperaturaDHT22 = [];
+    $scope.temperatura = [];
     $scope.y = [];
     $scope.humedad = [];
 
     $scope.datos.map((registro) => {
-      
       currentTime = new Date(registro.created_at);
-
-
       if (currentTime.getHours() != $scope.y.at(-1)) {
-
-        if((registro.sensor.includes('DHT11'))){
-          $scope.temperaturaDHT11.push(registro.temperatura);
-          $scope.temperaturaDHT22.push(0.1);
-        } else if (registro.sensor.includes('DHT22')) {
-          $scope.temperaturaDHT22.push(registro.temperatura);
-          $scope.temperaturaDHT11.push(0.1);
-        }
+        $scope.temperatura.push(registro.temperatura);
+        // $scope.humedad.push(registro.humedad);
         $scope.y.push(currentTime.getHours());
-
-        // (registro.sensor.includes('DHT11')) ? $scope.temperaturaDHT11.push(registro.temperatura) : $scope.temperaturaDHT22.push('');
-        // (registro.sensor.includes('DHT22')) ? $scope.temperaturaDHT22.push(registro.temperatura) : $scope.temperaturaDHT11.push('');
-        // // $scope.humedad.push(registro.humedad);
-        // $scope.y.push(currentTime.getHours());
       }
-
     });
 
     if ($scope.y.length > 0) {
 
-      $scope.min = (Math.min(...$scope.temperaturaDHT11) + Math.min(...$scope.temperaturaDHT22)) /2;
-      $scope.max = (Math.max(...$scope.temperaturaDHT11) + Math.max(...$scope.temperaturaDHT22)) /2;
+      $scope.min = Math.min(...$scope.temperatura);
+      $scope.max = Math.max(...$scope.temperatura);;
       console.log('min temp', $scope.min);
       console.log('max temp', $scope.max);
-      console.log('DHT11', $scope.temperaturaDHT11);
-      console.log('DHT22', $scope.temperaturaDHT22);
 
       new Chartist.Line(
         ".ct-chart",
         {
           labels: $scope.y.reverse(),
-          series: [$scope.temperaturaDHT11.reverse(), $scope.temperaturaDHT22.reverse()], //, $scope.humedad.reverse()],
+          series: [$scope.temperatura.reverse()], //, $scope.humedad.reverse()],
         },
         {
           high: $scope.max,
           low: $scope.min,
           fullWidth: true,
-          lineSmooth: Chartist.Interpolation.cardinal({
-            fillHoles: true,
-          }),
           // As this is axis specific we need to tell Chartist to use whole numbers only on the concerned axis
           axisY: {
             onlyInteger: false,
