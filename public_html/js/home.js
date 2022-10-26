@@ -4,8 +4,8 @@ app.controller("home", function ($interval, $scope, $http) {
   $scope.currentPage = 1;
   $scope.pageSize = 10;
 
+  $scope.sensor = '';
   $scope.datos = [];
-
   $scope.y = [];
   for (var i = 0; i <= 23; i++) $scope.y.push(i);
   $scope.min = 20;
@@ -98,6 +98,7 @@ app.controller("home", function ($interval, $scope, $http) {
   })
 
   $scope.graficar = function (dato) {
+    $scope.sensor = dato.sensor;
     if (dato.temperatura) {
       chart = ".ct-chart1";
       $scope.dataTemp.labels = ["Temperatura"];

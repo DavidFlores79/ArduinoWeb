@@ -82,7 +82,8 @@
                     </div>
 
                     <div class="ct-chart col-md-12 my-4"></div>
-                    <div class="col-12"><span class="text-muted" ng-if="dataTemp.series.length > 0">Temperatura y Humedad (últimas lecturas)</span></div>
+                    <div class="col-12"><span class="text-muted" ng-if="dataTemp.series.length > 0">Temperatura y Humedad</span></div>
+                    <div class="col-12"><span class="text-muted" ng-if="dataTemp.series.length > 0">(@{{ sensor }})</span></div>
                     <div class="ct-chart1 col-md-6"></div>
                     <div class="ct-chart2 col-md-6"></div>
                 </div>
