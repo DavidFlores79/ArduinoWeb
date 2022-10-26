@@ -76,6 +76,11 @@
             <div class="modal-body">
                 <div class="row text-center">
                     <div class="col-12"><span class="text-muted">Por hora del día {{ date('d-M-Y') }}</span></div>
+                    <div class="ml-3">
+                        <div class="dht-11" ng-if="temperaturaDHT11.length > 0">--- DHT-11</div>
+                        <div class="dht-22" ng-if="temperaturaDHT22.length > 0">--- DHT-22</div>
+                    </div>
+
                     <div class="ct-chart col-md-12 my-4"></div>
                     <div class="col-12"><span class="text-muted">Temperatura y Humedad (últimas lecturas)</span></div>
                     <div class="ct-chart1 col-md-6"></div>
@@ -109,6 +114,17 @@
 
     .fa-chart-bar {
         font-size: 18px;
+    }
+
+    .dht-11 {
+        color: #d70206;
+    }
+    .dht-22 {
+        color: #f05b4f;
+    }
+    .dht-11, .dht-22 {
+        font-size: small;
+        font-weight: bold;
     }
 </style>
 @endsection

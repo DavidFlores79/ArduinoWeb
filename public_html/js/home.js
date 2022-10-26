@@ -139,14 +139,17 @@ app.controller("home", function ($interval, $scope, $http) {
 
   $scope.mostrarGraficaLineas = function () {
 
-    $scope.temperatura = [];
+    $scope.temperaturaDHT11 = [];
+    $scope.temperaturaDHT22 = [];
     $scope.y = [];
     $scope.humedad = [];
 
     $scope.datos.map((registro) => {
+      
       currentTime = new Date(registro.created_at);
       if (currentTime.getHours() != $scope.y.at(-1)) {
-        $scope.temperatura.push(registro.temperatura);
+        (registro.sensor.includes('DHT11')) ? $scope.temperaturaDHT11.push(registro.temperatura) : $scope.temperaturaDHT11.push(0);
+        (registro.sensor.includes('DHT22')) ? $scope.temperaturaDHT22.push(registro.temperatura) : $scope.temperaturaDHT22.push(0);
         // $scope.humedad.push(registro.humedad);
         $scope.y.push(currentTime.getHours());
       }
@@ -163,7 +166,7 @@ app.controller("home", function ($interval, $scope, $http) {
         ".ct-chart",
         {
           labels: $scope.y.reverse(),
-          series: [$scope.temperatura.reverse()], //, $scope.humedad.reverse()],
+          series: [$scope.temperaturaDHT11.reverse(), $scope.temperaturaDHT22.reverse()], //, $scope.humedad.reverse()],
         },
         {
           high: $scope.max,
