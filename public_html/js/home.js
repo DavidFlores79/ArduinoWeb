@@ -151,12 +151,11 @@ app.controller("home", function ($interval, $scope, $http) {
         if (registro.sensor.includes('DHT11')) {
           $scope.temperaturaDHT11.push(registro.temperatura);
           $scope.temperaturaDHT22.push(0.1);
-          $scope.y.push(currentTime.getHours());
         } else if (registro.sensor.includes('DHT22')) {
           $scope.temperaturaDHT22.push(registro.temperatura);
           $scope.temperaturaDHT11.push(0.1);
-          $scope.y.push(currentTime.getHours());
         }
+        $scope.y.push(currentTime.getHours());
       }
     });
 
