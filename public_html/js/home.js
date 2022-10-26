@@ -157,8 +157,8 @@ app.controller("home", function ($interval, $scope, $http) {
 
     if ($scope.y.length > 0) {
 
-      $scope.min = Math.min(...$scope.temperatura);
-      $scope.max = Math.max(...$scope.temperatura);;
+      $scope.min = (Math.min(...$scope.temperaturaDHT11) + Math.min(...$scope.temperaturaDHT22)) /2;
+      $scope.max = (Math.max(...$scope.temperaturaDHT11) + Math.max(...$scope.temperaturaDHT22)) /2;
       console.log('min temp', $scope.min);
       console.log('max temp', $scope.max);
 
