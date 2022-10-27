@@ -79,11 +79,6 @@ app.controller("home", function ($interval, $scope, $http) {
       },
       function errorCallback(response) {
         console.log(response);
-        swal(
-          "Mensaje del Sistema",
-          response.data.message,
-          tiposDeMensaje.error
-        );
       }
     );
   }
