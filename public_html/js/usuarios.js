@@ -126,7 +126,9 @@ app.controller('usuarios', function ($scope, $http) {
         );
     }
 
-    $scope.edit = function (usuario) {
+    $scope.edit = function (usuario) 
+    {
+        $scope.editForm = usuario;
         console.log('usuario', usuario);
         if(usuario.name) $scope.editForm['name'] = usuario.name;
         if(usuario.email) $scope.editForm['email'] = usuario.email;
