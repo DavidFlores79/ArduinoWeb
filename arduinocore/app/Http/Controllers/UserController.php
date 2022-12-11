@@ -49,6 +49,7 @@ class UserController extends Controller
         $rules = [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email|min:3',
+            'uid' => 'nullable|string',
             'password' => 'required|string|min:8', // |confirmed
         ];
         $this->validate($request, $rules);
@@ -57,6 +58,7 @@ class UserController extends Controller
             $user = new User();
             $user->name = $request->input('name');
             $user->email = $request->input('email');
+            if( $request->input('uid') ) $user->uid = $request->input('uid');
             $user->password = Hash::make($request->input('password'));
             $user->save();
     
@@ -117,6 +119,7 @@ class UserController extends Controller
             
                 if ($request->input('name')) $user->name = $request->input('name');
                 if ($request->input('email')) $user->email = $request->input('email');    
+                if ($request->input('uid')) $user->uid = $request->input('uid');    
                 $user->save();
                 
                 $data = [

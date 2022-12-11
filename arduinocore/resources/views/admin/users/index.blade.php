@@ -22,6 +22,7 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Email</th>
+                                    <th scope="col">UID</th>
                                     <th scope="col">Fecha Creación</th>
                                     <th scope="col">Opciones</th>
                                 </tr>
@@ -31,6 +32,7 @@
                                     <td>@{{ dato.id }}</td>
                                     <td>@{{ dato.name }}</td>
                                     <td>@{{ dato.email }}</td>
+                                    <td>@{{ dato.uid }}</td>
                                     <td>@{{ dato.created_at | date }}</td>
                                     <td>
                                         <button type="button" class="btn btn-sm btn-primary" ng-click="edit(dato)"><i class="fas fa-edit"></i></button>
@@ -61,16 +63,21 @@
                 <form id="createForm" ng-submit="store()" class="was-validated">
                     <div class="form-group">
                         <label for="name">Nombre</label>
-                        <input class="form-control" type="text" name="name" ng-model="createForm.name" id="name">
+                        <input class="form-control" type="text" name="name" ng-model="createForm.name" id="name" required min="3">
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input class="form-control" type="email" name="email" ng-model="createForm.email" id="email">
+                        <input class="form-control" type="email" name="email" ng-model="createForm.email" id="email" required>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input class="form-control" type="password" name="password" ng-model="createForm.password" id="password">
+                        <input class="form-control" type="password" name="password" ng-model="createForm.password" id="password" required min="8">
                     </div>
+                    <div class="form-group">
+                        <label for="uid">UID</label>
+                        <input class="form-control" type="text" name="uid" ng-model="createForm.uid" id="uid" pattern="[A-Za-z0-9]+(\s([A-Za-z0-9]+\s))+[A-Za-z0-9]+(\s([A-Za-z0-9]{2}))" placeholder="C1 2F D6 0E">
+                    </div>
+
                     <div class="form-group">
                         <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
                     </div>
@@ -100,6 +107,11 @@
                         <label for="edit-email">Email</label>
                         <input class="form-control" type="email" name="edit-email" ng-model="editForm.email" id="edit-email">
                     </div>
+                    <div class="form-group">
+                        <label for="uid">UID</label>
+                        <input class="form-control" type="text" name="edit-uid" ng-model="editForm.uid" id="edit-uid" pattern="[A-Za-z0-9]+(\s([A-Za-z0-9]+\s))+[A-Za-z0-9]+(\s([A-Za-z0-9]{2}))" placeholder="C1 2F D6 0E">
+                    </div>
+
                     <div class="form-group">
                         <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
                     </div>

@@ -57,9 +57,9 @@ app.controller('usuarios', function ($scope, $http) {
                 // $scope.createForm.estatus = true;
                 // $scope.createForm.visible = true;
                 $('#agregarModal').modal('show');
-                // setTimeout(() => {
-                //     $('#createForm').trigger('reset');
-                // }, 500);
+                setTimeout(() => {
+                    $('#createForm').trigger('reset');
+                }, 500);
             },
             function errorCallback(response) {
                 console.log(response);
@@ -130,6 +130,7 @@ app.controller('usuarios', function ($scope, $http) {
         console.log('usuario', usuario);
         if(usuario.name) $scope.editForm['name'] = usuario.name;
         if(usuario.email) $scope.editForm['email'] = usuario.email;
+        if(usuario.uid) $scope.editForm['uid'] = usuario.uid;
         if(usuario.id) $scope.editForm['id'] = usuario.id;
         // if(usuario.direccion) $scope.editForm['direccion'] = usuario.direccion;
         // if(usuario.edad) $scope.editForm['edad'] = parseInt(usuario.edad);
