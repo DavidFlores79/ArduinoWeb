@@ -20,16 +20,17 @@ class UserController extends Controller
         $ahora = Carbon::now()->format('H:i:s');
 
         if(is_object($user)){
-            $data = [
-                'code' => 200,
-                'status' => 'success',
-                'success' => true,
-                'message' => 'Usuario permitido',
-                'user' => $user,
-                'ahora' => $ahora,
-            ];
-            if($ahora < $user->horario_entrada && $ahora > $user->horario_salida){
-                
+            if($ahora > $user->horario_entrada && $ahora < $user->horario_salida){
+                $data = [
+                    'code' => 200,
+                    'status' => 'success',
+                    'success' => true,
+                    'message' => 'Usuario permitido',
+                    'user' => $user,
+                    'ahora' => $ahora,
+                ];
+    
+            } else {
                 $data = [
                     'code' => 401,
                     'status' => 'error',
@@ -38,6 +39,7 @@ class UserController extends Controller
                     'user' => $user,
                     'ahora' => $ahora,
                 ];
+
             }
     
         } else {
