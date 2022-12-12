@@ -79,7 +79,8 @@
                     </div>
                     <div class="form-group">
                         <label for="uid">UID</label>
-                        <input class="form-control" type="text" name="uid" ng-model="createForm.uid" id="uid" pattern="[A-Za-z0-9]+(\s([A-Za-z0-9]+\s))+[A-Za-z0-9]+(\s([A-Za-z0-9]{2}))" placeholder="C1 2F D6 0E">
+                        <!-- <input class="form-control" type="text" name="uid" ng-model="createForm.uid" id="uid" pattern="[A-Za-z0-9]+(\s([A-Za-z0-9]+\s))+[A-Za-z0-9]+(\s([A-Za-z0-9]{2}))" placeholder="C1 2F D6 0E"> -->
+                        <input class="form-control" type="text" name="uid" ng-model="createForm.uid" id="uid" placeholder="C12FD60E">
                     </div>
                     <div class="form-group">
                         <label for="entrada">Entrada</label>
@@ -120,7 +121,8 @@
                     </div>
                     <div class="form-group">
                         <label for="uid">UID</label>
-                        <input class="form-control" type="text" name="edit-uid" ng-model="editForm.uid" id="edit-uid" pattern="[A-Za-z0-9]+(\s([A-Za-z0-9]+\s))+[A-Za-z0-9]+(\s([A-Za-z0-9]{2}))" placeholder="C1 2F D6 0E">
+                        <!-- <input class="form-control" type="text" name="edit-uid" ng-model="editForm.uid" id="edit-uid" pattern="[A-Za-z0-9]+(\s([A-Za-z0-9]+\s))+[A-Za-z0-9]+(\s([A-Za-z0-9]{2}))" placeholder="C1 2F D6 0E"> -->
+                        <input class="form-control" type="text" name="edit-uid" ng-model="editForm.uid" id="edit-uid" placeholder="C12FD60E">
                     </div>
                     <div class="form-group">
                         <label for="entrada">Entrada</label>
