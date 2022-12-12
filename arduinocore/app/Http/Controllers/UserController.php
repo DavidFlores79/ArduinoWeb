@@ -16,8 +16,8 @@ class UserController extends Controller
     function getUsuarios()
     {
         $users = User::all();
-        
-        if(is_object($users)){
+
+        if (is_object($users)) {
             $data = [
                 'code' => 200,
                 'status' => 'success',
@@ -34,7 +34,7 @@ class UserController extends Controller
     }
 
     public function create(Request $request)
-    {        
+    {
         $data = [
             'code' => 200,
             'status' => 'success',
@@ -42,10 +42,10 @@ class UserController extends Controller
         return response()->json($data, $data['code']);
     }
 
-    public function store(Request $request) 
+    public function store(Request $request)
     {
         //return $request;
-        
+
         $rules = [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email|min:3',
@@ -58,11 +58,13 @@ class UserController extends Controller
             $user = new User();
             $user->name = $request->input('name');
             $user->email = $request->input('email');
-            if( $request->input('uid') ) $user->uid = $request->input('uid');
+            if ($request->input('uid')) $user->uid = $request->input('uid');
+            if ($request->input('horario_entrada')) $user->horario_entrada = $request->input('horario_entrada');
+            if ($request->input('horario_salida')) $user->horario_salida = $request->input('horario_salida');
             $user->password = Hash::make($request->input('password'));
             $user->save();
-    
-            if(is_object($user)) {
+
+            if (is_object($user)) {
                 $data = [
                     'code' => 200,
                     'status' => 'success',
@@ -77,16 +79,14 @@ class UserController extends Controller
                 ];
             }
             return response()->json($data, $data['code']);
-            
         } catch (\Throwable $th) {
             $data = [
                 'code' => 400,
                 'status' => 'error',
-                'message' => 'Se ha producido un error al guardar.'.$th->getMessage(),
+                'message' => 'Se ha producido un error al guardar.' . $th->getMessage(),
             ];
             return response()->json($data, $data['code']);
         }
-
     }
 
     public function edit(Request $request)
@@ -106,22 +106,24 @@ class UserController extends Controller
         $rules = [
             'name' => 'string|max:255',
             'id' => 'exists:users,id',
-            'email' => 'string|min:3|unique:users,email,'.$request->input('id'),
+            'email' => 'string|min:3|unique:users,email,' . $request->input('id'),
             'password' => 'string|nullable|min:8', // |confirmed
         ];
         $this->validate($request, $rules);
 
-        if($request->input('id'))
-            $user = User::where('id',$request->input('id'))->first();
+        if ($request->input('id'))
+            $user = User::where('id', $request->input('id'))->first();
 
         try {
-            if(is_object($user)) {
-            
+            if (is_object($user)) {
+
                 if ($request->input('name')) $user->name = $request->input('name');
-                if ($request->input('email')) $user->email = $request->input('email');    
-                if ($request->input('uid')) $user->uid = $request->input('uid');    
+                if ($request->input('email')) $user->email = $request->input('email');
+                if ($request->input('uid')) $user->uid = $request->input('uid');
+                if ($request->input('horario_entrada')) $user->horario_entrada = $request->input('horario_entrada');
+                if ($request->input('horario_salida')) $user->horario_salida = $request->input('horario_salida');
                 $user->save();
-                
+
                 $data = [
                     'code' => 200,
                     'status' => 'success',
@@ -143,19 +145,18 @@ class UserController extends Controller
             $data = [
                 'code' => 404,
                 'status' => 'error',
-                'message' => 'Error al actualizar.'.$th->getMessage(),
+                'message' => 'Error al actualizar.' . $th->getMessage(),
             ];
             return response()->json($data, $data['code']);
         }
-             
     }
 
 
     public function destroy($id)
     {
-        $user = User::where('id',$id)->first();
+        $user = User::where('id', $id)->first();
 
-        if(is_object($user) && ($user->id != auth()->user()->id )) {
+        if (is_object($user) && ($user->id != auth()->user()->id)) {
             $user->delete();
             $data = [
                 'code' => 200,

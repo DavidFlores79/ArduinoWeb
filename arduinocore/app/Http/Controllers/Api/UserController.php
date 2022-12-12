@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -14,7 +15,9 @@ class UserController extends Controller
 
         $uid = $request->input('uid');
         $user = User::where('uid', $uid)->first();
+        $permitido = false;
 
+        $ahora = Carbon::now()->format('H:i:s');
 
         if(is_object($user)){
             $data = [
@@ -22,8 +25,19 @@ class UserController extends Controller
                 'status' => 'success',
                 'success' => true,
                 'message' => 'Usuario permitido',
-                'user' => $user
+                'user' => $user,
             ];
+            if($ahora < $user->horario_entrada && $ahora > $user->horario_salida){
+                
+                $data = [
+                    'code' => 401,
+                    'status' => 'error',
+                    'success' => false,
+                    'message' => 'Usuario Fuera de Horario',
+                    'user' => $user,
+                ];
+            }
+    
         } else {
             $data = [
                 'code' => 400,

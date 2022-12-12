@@ -23,6 +23,8 @@
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">UID</th>
+                                    <th scope="col">Entrada</th>
+                                    <th scope="col">Salida</th>
                                     <th scope="col">Fecha Creación</th>
                                     <th scope="col">Opciones</th>
                                 </tr>
@@ -33,6 +35,8 @@
                                     <td>@{{ dato.name }}</td>
                                     <td>@{{ dato.email }}</td>
                                     <td>@{{ dato.uid }}</td>
+                                    <td>@{{ dato.horario_entrada }}</td>
+                                    <td>@{{ dato.horario_salida }}</td>
                                     <td>@{{ dato.created_at | date }}</td>
                                     <td>
                                         <button type="button" class="btn btn-sm btn-primary" ng-click="edit(dato)"><i class="fas fa-edit"></i></button>
@@ -77,7 +81,14 @@
                         <label for="uid">UID</label>
                         <input class="form-control" type="text" name="uid" ng-model="createForm.uid" id="uid" pattern="[A-Za-z0-9]+(\s([A-Za-z0-9]+\s))+[A-Za-z0-9]+(\s([A-Za-z0-9]{2}))" placeholder="C1 2F D6 0E">
                     </div>
-
+                    <div class="form-group">
+                        <label for="entrada">Entrada</label>
+                        <input id="timepicker-entrada" class="form-control" placeholder="p.e. 09:15" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="salida">Salida</label>
+                        <input id="timepicker-salida" class="form-control" placeholder="p.e. 20:30" required/>
+                    </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
                     </div>
@@ -111,7 +122,14 @@
                         <label for="uid">UID</label>
                         <input class="form-control" type="text" name="edit-uid" ng-model="editForm.uid" id="edit-uid" pattern="[A-Za-z0-9]+(\s([A-Za-z0-9]+\s))+[A-Za-z0-9]+(\s([A-Za-z0-9]{2}))" placeholder="C1 2F D6 0E">
                     </div>
-
+                    <div class="form-group">
+                        <label for="entrada">Entrada</label>
+                        <input id="edit-entrada" class="form-control" placeholder="p.e. 09:15" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="salida">Salida</label>
+                        <input id="edit-salida" class="form-control" ng-model="editForm.horario_salida" placeholder="p.e. 20:30" required/>
+                    </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
                     </div>
@@ -148,4 +166,18 @@
 @section('ngFile')
 <script src="{{ asset('js/usuarios.js') }}"></script>
 
+@endsection
+
+@section('scripts')
+
+<script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
+<link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+<script>
+    $('#timepicker-entrada, #edit-entrada').timepicker({
+        uiLibrary: 'bootstrap4'
+    });
+    $('#timepicker-salida, #edit-salida').timepicker({
+        uiLibrary: 'bootstrap4'
+    });
+</script>
 @endsection
