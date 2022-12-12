@@ -81,8 +81,10 @@ app.controller('usuarios', function ($scope, $http) {
     }
 
     $scope.store = function () {
+        $scope.createForm.horario_entrada = $('#timepicker-entrada').val();
+        $scope.createForm.horario_salida = $('#timepicker-salida').val();
         console.log('name:', $scope.createForm);
-        //return;
+        // return;
         $http({
             url: 'usuarios',
             method: 'POST',
@@ -130,15 +132,15 @@ app.controller('usuarios', function ($scope, $http) {
     {
         $scope.editForm = usuario;
         console.log('usuario', usuario);
+        $('#edit-entrada').timepicker().value(usuario.horario_entrada);
+        $('#edit-salida').timepicker().value(usuario.horario_salida);
         if(usuario.name) $scope.editForm['name'] = usuario.name;
         if(usuario.email) $scope.editForm['email'] = usuario.email;
         if(usuario.uid) $scope.editForm['uid'] = usuario.uid;
         if(usuario.id) $scope.editForm['id'] = usuario.id;
-        // if(usuario.direccion) $scope.editForm['direccion'] = usuario.direccion;
-        // if(usuario.edad) $scope.editForm['edad'] = parseInt(usuario.edad);
-        // if(usuario.perfil_id) $scope.editForm['perfil_id'] = usuario.perfil_id;
-        // $scope.editForm.estatus = (usuario.estatus) ? true:false;
-        // $scope.editForm.visible = (usuario.visible) ? true:false;
+        // if(usuario.horario_entrada) $('#edit-entrada').val(usuario.horario_entrada);
+        // if(usuario.horario_salida) $('#edit-salida').val(usuario.horario_salida);
+
         
         console.log('EditForm', $scope.editForm);
         $http({
@@ -177,7 +179,9 @@ app.controller('usuarios', function ($scope, $http) {
     }
 
     $scope.update = function () {
-
+        $scope.editForm.horario_entrada = $('#edit-entrada').val();
+        $scope.editForm.horario_salida = $('#edit-salida').val();
+        // console.log('EditForm', $scope.editForm); return
         $http({
             url: `usuarios`,
             method: 'PUT',
