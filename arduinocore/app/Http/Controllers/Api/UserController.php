@@ -26,6 +26,7 @@ class UserController extends Controller
                 'success' => true,
                 'message' => 'Usuario permitido',
                 'user' => $user,
+                'ahora' => $ahora,
             ];
             if($ahora < $user->horario_entrada && $ahora > $user->horario_salida){
                 
@@ -35,6 +36,7 @@ class UserController extends Controller
                     'success' => false,
                     'message' => 'Usuario Fuera de Horario',
                     'user' => $user,
+                    'ahora' => $ahora,
                 ];
             }
     
