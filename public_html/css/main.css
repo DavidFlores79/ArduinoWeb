@@ -278,6 +278,10 @@ span.myPrependClass {
   min-width: 100px;
 }
 
+.dropdown-menu {
+  left: -120px;
+}
+
 /*/ RESPONSIVE*/
 /*========================================================================= /*/
 
