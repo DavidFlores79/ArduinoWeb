@@ -12,7 +12,7 @@
 
 <body>
     <main class="m-0 vh-100 row justify-content-center align-items-center">
-        <div class="col-md-4">
+        <div class="col-lg-4 col-md-6">
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
 

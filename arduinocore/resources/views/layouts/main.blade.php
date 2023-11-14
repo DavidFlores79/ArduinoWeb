@@ -18,6 +18,8 @@
     <link href="{{ asset('css/ng-table.min.css') }}" rel="stylesheet">
     <!-- AngularJS -->
     <script src="{{ asset('js/angular-1.8.2/angular.min.js') }}"></script>
+    <!-- Constants JS -->
+    <script src="{{ asset('js/constantes.js') }}"></script>
     <!-- Sweet Alert -->
     <script src="{{ asset('js/sweetalert2.1.2/sweetalert.min.js') }}"></script>
     <!-- Moment.js -->

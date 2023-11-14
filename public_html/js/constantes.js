@@ -21,15 +21,6 @@ const tiposDeMensaje = {
     advertencia: 'warning',
 }
 
-const erroresSAP = {
-    ERROR_CONEXION_SAP: {
-        tipo: tiposDeMensaje.error,
-        titulo: 'Error de Conexion',
-        mensaje: 'Error al conectarse a SAP. Favor de Verificar',
-    },
-};
-
-
 const configuraciones = {
     titulo: 'Configuracion del Sistema',
 }
@@ -38,53 +29,29 @@ const bitacora = {
     titulo: 'Bitácora',
 }
 
-const proveedores = {
-    titulo: 'Proveedores',
+function mostrarSwal(response) {
+    console.log({response});
+    if (response.status === 422) {
+        let mensaje = "";
+        for (let i in response.data.errors) {
+            mensaje += response.data.errors[i] + "\n";
+        }
+        swal(mensaje, {
+            title: titulos.mensaje_sistema,
+            icon: tiposDeMensaje.advertencia,
+        });
+    } else if (response.status === 419 || response.status === 401) {
+        swal({
+            title: titulos.mensaje_sistema,
+            text: "Serás redirigido a Home.",
+            icon: tiposDeMensaje.advertencia,
+            confirmButtonText: 'Ir a Home!',
+        }).then(() => window.location.href = "home");
+    } else {
+        swal(
+            titulos.mensaje_sistema,
+            response.data.message ?? 'Error al obtener los datos.',
+            tiposDeMensaje.error
+        );
+    }
 }
-
-const admon_mensajes = {
-    titulo: 'Administración de mensajes',
-};
-
-const admonUsuarios = {
-    titulo: 'Administración de Usuarios',
-};
-
-const pagosRecibidos = {
-    titulo: 'Pagos Recibidos',
-}
-
-const estadosCuenta = {
-    titulo: 'Estados de cuenta',
-};
-
-const facturasRevision = {
-    titulo: 'Facturas en revisión',
-};
-
-const facturasSap = {
-    titulo: 'Facturas Sap',
-};
-
-const carga_xml = {
-    titulo: 'Carga XML',
-}
-const monitorJobs = {
-    titulo: 'Monitor Jobs',
-};
-
-const ErroresXml = {
-    titulo: 'Errores de Carga XML',
-};
-
-const recepcionXml = {
-    titulo: 'Recepción de XMLs',
-};
-
-const categoriasModulos = {
-    titulo: 'Categorias Modulos',
-};
-
-const modulos = {
-    titulo: 'Modulos',
-};
