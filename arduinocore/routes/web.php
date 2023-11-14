@@ -75,6 +75,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('upload', [App\Http\Controllers\UploadController::class, 'store']);
     Route::delete('upload', [App\Http\Controllers\UploadController::class, 'delete']);
+
+    //Roles
+    Route::post("roles", [App\Http\Controllers\RoleController::class, "store"])->name("roles.store"); //profiles
     
 });
 

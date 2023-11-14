@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('page-title', 'Perfiles')
+@section('page-title', 'Perfiles y Roles')
 @section('ngApp', 'profiles')
 @section('ngController', 'profiles')
 
@@ -21,7 +21,7 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Nombre</th>
-                                    <th scope="col">Fecha Creación</th>
+                                    <th scope="col">Módulos</th>
                                     <th scope="col">Opciones</th>
                                 </tr>
                             </thead>
@@ -29,8 +29,11 @@
                                 <tr ng-repeat="item in data track by $index">
                                     <td>@{{ item.id }}</td>
                                     <td>@{{ item.name }}</td>
-                                    <td>@{{ item.created_at | date }}</td>
                                     <td>
+                                        <span ng-repeat="module in item.modules_related">@{{module}}, </span>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-info" ng-click="showRole(item)" data-toggle="tooltip" data-placement="top" title="Mostrar Rol"><i class="fas fa-eye"></i></button>
                                         <button type="button" class="btn btn-sm btn-primary" ng-click="edit(item)"><i class="fas fa-edit"></i></button>
                                         <button type="button" class="btn btn-sm btn-danger" ng-click="confirmarEliminar(item)"><i class="fas fa-trash"></i></button>
                                     </td>
@@ -119,6 +122,48 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-danger" ng-click="delete(profile)">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Mostrar Roles-->
+<div class="modal fade" id="roleModal" tabindex="-1" aria-labelledby="roleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="roleModalLabel">Role</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Modulo</th>
+                                <th scope="col">Permisos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="module in modules track by $index">
+                                <th scope="row">@{{ module.id }}</th>
+                                <td>@{{ module.name }}</td>
+                                <td>
+                                    <select data-width="300px" name="permissions_selected" ng-model="permissions_selected[module.id]" id="permissions_selected-@{{module.id}}" class="form-control selectpicker" data-selected-text-format="count > 3" multiple title="Selecciona Permisos...">
+                                        <option value="@{{permission.id}}" ng-repeat="permission in permissions">@{{ permission.name }}</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="saveRole()">Guardar</button>
             </div>
         </div>
     </div>

@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Module;
+use App\Models\Permission;
 use App\Models\Profile;
+use App\Traits\ProfileTrait;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class ProfileController extends Controller
 {
+    use ProfileTrait;
+
     public function index()
     {
         return view('admin.profiles.index');
@@ -15,17 +20,17 @@ class ProfileController extends Controller
 
     public function getData()
     {
-        $data = Profile::where('status', true)->get();
-
-        // return "hola mundo";
         try {
-            // $data = Profile::where("status", 1)->get();
-            $data = Profile::all();
+            $data = Profile::where("status", 1)->get();
+            $modules = Module::where("status", 1)->get();
+            $permissions = Permission::all();
             $codes = [
                 ["id" => 1, "code" => "superuser", "name" => "Super Usuario",],
                 ["id" => 2, "code" => "admin", "name" => "Administrador",],
                 ["id" => 3, "code" => "user", "name" => "Usuario",],
             ];
+
+            $this->getModulesandPermissions($data);
 
             if (!is_object($data)) {
                 throw new \ErrorException("Error al obtener los catálogos.", 404);
@@ -36,6 +41,8 @@ class ProfileController extends Controller
                 "status" => "success",
                 "data" => $data,
                 "codes" => $codes,
+                "modules" => $modules,
+                "permissions" => $permissions,
             ];
 
             // $this->saveEvent("Perfiles - Catálogos", "ha obtenido los catálogos", "S/D"); //bitacora
@@ -143,7 +150,6 @@ class ProfileController extends Controller
         }
     }
 
-
     public function destroy($id)
     {
         $item = Profile::where('id', $id)->first();
@@ -166,4 +172,5 @@ class ProfileController extends Controller
         }
         return response()->json($data, $data['code']);
     }
+
 }

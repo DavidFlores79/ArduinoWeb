@@ -8,7 +8,9 @@ app.controller('profiles', function ($scope, $http) {
     $scope.editForm = [];
     $scope.data = [];
     $scope.codes = [];
-    $scope.createForm = {};
+    $scope.modules = [];
+    $scope.permissions = [];
+    $scope.permissions_selected = [];
     
     $http({
         url: 'profiles/get-data',
@@ -22,6 +24,8 @@ app.controller('profiles', function ($scope, $http) {
             console.log(response);
             $scope.data = response.data.data;
             $scope.codes = response.data.codes;
+            $scope.modules = response.data.modules;
+            $scope.permissions = response.data.permissions;
             console.log($scope.data);
         },
         function errorCallback(response) {
@@ -166,6 +170,51 @@ app.controller('profiles', function ($scope, $http) {
             }
         );
         
+    }
+
+    $scope.showRole = (item) => {
+        $scope.item = item;
+
+        // asignar valores a los selectpicker de cada modulo
+        $scope.permissions_selected = item.permissionIds;
+        console.log('Permission Selected', $scope.permissions_selected);
+
+        setTimeout(() => {
+            $('.selectpicker').selectpicker('refresh');
+        }, 50);
+
+        $('#roleModal').modal('show');
+    }
+
+    $scope.saveRole = () => {
+
+        $http({
+            url: `roles`,
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            data: {
+                profile_id: $scope.item.id,
+                module_permissions: $scope.permissions_selected,
+            }
+        }).then(
+            function successCallback(response) {
+                console.log(response);
+                $scope.data = $scope.data.map(profile => (profile.id == response.data.item.id) ? profile = response.data.item : profile);
+                $('#roleModal').modal('hide');
+                swal(
+                    'Mensaje del Sistema',
+                    response.data.message,
+                    response.data.status
+                );
+            },
+            function errorCallback(response) {
+                console.log(response);
+                mostrarSwal(response);
+            }
+        );
     }
 
     $('#editarUsuarioModal').on('hidden.bs.modal', function () {

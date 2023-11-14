@@ -20,9 +20,9 @@ class Permission extends Model
             ->withPivot('module_id');
     }
 
-    public function modulos()
+    public function modules()
     {
-        return $this->belongsToMany(Modulo::class, 'module_permission_profile')->withTimestamps()
+        return $this->belongsToMany(Module::class, 'module_permission_profile')->withTimestamps()
             ->withPivot('profile_id');
     }
 }

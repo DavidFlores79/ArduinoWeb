@@ -15,20 +15,19 @@ class Module extends Model
     ];
 
     public function profiles(){
-        return $this->belongsToMany(Profile::class,'module_permission_profile')->withTimestamps()
-            ->withPivot('permission_id');
+        return $this->belongsToMany(Profile::class,'module_permission_profile')->withPivot('permission_id');
     }
-    public function permisos(){
-        return $this->belongsToMany(Permiso::class,'module_permission_profile')->withTimestamps()
-            ->withPivot('profile_id');
+    
+    public function permissions(){
+        return $this->belongsToMany(Permission::class,'module_permission_profile')->withPivot('profile_id');
     }
 
     public function category(){
         return $this->belongsTo(Category::class, "category_id");
     }
 
-    public function module_permission()
+    public function module_permissions()
     {
-        return $this->hasMany(ModulePermission::class)->with("permission_name");
+        return $this->hasMany(Permission::class);
     }
 }

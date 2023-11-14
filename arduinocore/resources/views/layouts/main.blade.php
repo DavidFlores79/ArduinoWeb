@@ -14,12 +14,15 @@
     <!-- FontAwesome -->
     <link href="{{ asset('css/fontawesome/all.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+    <!-- Bootstrap Select  -->
     <link href="{{ asset('css/bootstrap-select-1.13.14/bootstrap-select.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/ng-table.min.css') }}" rel="stylesheet">
     <!-- AngularJS -->
     <script src="{{ asset('js/angular-1.8.2/angular.min.js') }}"></script>
     <!-- Constants JS -->
     <script src="{{ asset('js/constantes.js') }}"></script>
+    <!-- Loading  -->
+    <link href="{{ asset('css/loading.css') }}" rel="stylesheet">
     <!-- Sweet Alert -->
     <script src="{{ asset('js/sweetalert2.1.2/sweetalert.min.js') }}"></script>
     <!-- Moment.js -->
@@ -101,6 +104,9 @@
     <script src="{{ asset('js/fontawesome/all.min.js') }}"></script>
     <script src="{{ asset('js/dirPagination.js') }}"></script>
     <script src="{{ asset('js/ng-table.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-select-1.13.14/bootstrap-select.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.serializejson.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
     <!-- Angular File -->
     @yield('ngFile')
     <!-- Scripts -->
