@@ -44,7 +44,7 @@ class ModuleController extends Controller
             return response()->json($data, $data["code"]);
         } catch (\Exception $e) {
             if (str_contains($e->getMessage(), "Failed to connect") || str_contains($e->getMessage(), "Operation timed out")) throw new \ErrorException("Tiempo de espera agotado.", 500);
-            // $this->guardarEvento("Admon Usuarios - Catálogos", "intentó obtener los catálogos", "S/D", false); //bitacora
+            // $this->saveEvent("Admon Usuarios - Catálogos", "intentó obtener los catálogos", "S/D", false); //bitacora
             throw new HttpException(($e->getCode() > 500 || $e->getCode() < 100) ? 500 : $e->getCode(), $e->getMessage());
         }
     }
@@ -99,7 +99,7 @@ class ModuleController extends Controller
             return response()->json($data, $data['code']);
         } catch (\Exception $e) {
             if (str_contains($e->getMessage(), "Failed to connect") || str_contains($e->getMessage(), "Operation timed out")) throw new \ErrorException("Tiempo de espera agotado.", 500);
-            // $this->guardarEvento("Admon Usuarios - Catálogos", "intentó obtener los catálogos", "S/D", false); //bitacora
+            // $this->saveEvent("Admon Usuarios - Catálogos", "intentó obtener los catálogos", "S/D", false); //bitacora
             throw new HttpException(($e->getCode() > 500 || $e->getCode() < 100) ? 500 : $e->getCode(), $e->getMessage());
         }
     }

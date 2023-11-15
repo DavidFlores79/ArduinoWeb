@@ -3,6 +3,7 @@ var app = angular.module('modules', ["angularUtils.directives.dirPagination"]);
 
 
 app.controller('modules', function ($scope, $http, $httpParamSerializerJQLike) {
+    activarLoading();
     $scope.item = {};
     $scope.createForm = {
         status: true,
@@ -21,11 +22,14 @@ app.controller('modules', function ($scope, $http, $httpParamSerializerJQLike) {
     }).then(
         function successCallback(response) {
             console.log(response);
+            desactivarLoading();
             $scope.data = response.data.data;
             $scope.categories = response.data.categories;
             console.log($scope.data);
         },
         function errorCallback(response) {
+            console.log(response);
+            desactivarLoading();
             mostrarSwal(response);
         }
     );

@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Module;
 use App\Models\Profile;
+use App\Traits\LogTrait;
 use App\Traits\ProfileTrait;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
-    use ProfileTrait;
+    use ProfileTrait, LogTrait;
 
     public function store(Request $request)
     {
@@ -25,7 +26,7 @@ class RoleController extends Controller
         $permissions = array();
         $syncData = array();
 
-        for ($i = 1; $i <= Module::count(); $i++) {
+        for ($i = 1; $i <= (Module::count() + 5); $i++) {
             if (isset($permissions_selected[$i])) {
                 $permissions[] = count($permissions_selected[$i]);
                 for ($j = 0; $j < count($permissions_selected[$i]); $j++) {
@@ -37,12 +38,16 @@ class RoleController extends Controller
         $profile->permissions()->detach();
         $profile->permissions()->sync($syncData);
         $profile = $this->getProfileModulesandPermissions($profile);
+        $modules = (count($profile->modules_related) > 0) ? implode(" | ", $profile->modules_related) : "No escogió modulos.";
+        $this->saveEvent("Perfiles y Roles - Guardar Permisos", "ha guardado los permisos en los módulos: ".$modules, "S/D"); //bitacora
 
         $data = [
             'code' => 200,
             'message' => 'Los permisos en los módulos se han guardado correctamente.',
             'status' => 'success',
             'item' => $profile,
+            'count permissions' => count($permissions_selected),
+            'count' => (Module::count() + 1),
         ];
 
         return response()->json($data, $data['code']);

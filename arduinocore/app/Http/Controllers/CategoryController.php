@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Traits\LogTrait;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class CategoryController extends Controller
 {
+    use LogTrait;
+
     public function index()
     {
         return view('admin.categories.index');
@@ -31,12 +34,12 @@ class CategoryController extends Controller
                 "data" => $data,
             ];
 
-            // $this->saveEvent("Perfiles - Catálogos", "ha obtenido los catálogos", "S/D"); //bitacora
+            $this->saveEvent("Perfiles - Catálogos", "ha obtenido los catálogos", "S/D"); //bitacora
 
             return response()->json($data, $data["code"]);
         } catch (\Exception $e) {
             if (str_contains($e->getMessage(), "Failed to connect") || str_contains($e->getMessage(), "Operation timed out")) throw new \ErrorException("Tiempo de espera agotado.", 500);
-            // $this->guardarEvento("Admon Usuarios - Catálogos", "intentó obtener los catálogos", "S/D", false); //bitacora
+            $this->saveEvent("Categorías - Catálogos", "intentó obtener los catálogos", "S/D", false); //bitacora
             throw new HttpException(($e->getCode() > 500 || $e->getCode() < 100) ? 500 : $e->getCode(), $e->getMessage());
         }
     }
@@ -81,7 +84,7 @@ class CategoryController extends Controller
             return response()->json($data, $data['code']);
         } catch (\Exception $e) {
             if (str_contains($e->getMessage(), "Failed to connect") || str_contains($e->getMessage(), "Operation timed out")) throw new \ErrorException("Tiempo de espera agotado.", 500);
-            // $this->guardarEvento("Admon Usuarios - Catálogos", "intentó obtener los catálogos", "S/D", false); //bitacora
+            // $this->saveEvent("Admon Usuarios - Catálogos", "intentó obtener los catálogos", "S/D", false); //bitacora
             throw new HttpException(($e->getCode() > 500 || $e->getCode() < 100) ? 500 : $e->getCode(), $e->getMessage());
         }
     }

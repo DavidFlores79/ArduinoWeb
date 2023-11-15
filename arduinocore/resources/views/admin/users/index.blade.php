@@ -1,8 +1,8 @@
 @extends('layouts.main')
 
 @section('page-title', 'Usuarios')
-@section('ngApp', 'usuarios')
-@section('ngController', 'usuarios')
+@section('ngApp', 'users')
+@section('ngController', 'users')
 
 @section('content')
 <div class="container">
@@ -166,7 +166,7 @@
 @endsection
 
 @section('ngFile')
-<script src="{{ asset('js/usuarios.js') }}"></script>
+<script src="{{ asset('js/users.js') }}"></script>
 
 @endsection
 

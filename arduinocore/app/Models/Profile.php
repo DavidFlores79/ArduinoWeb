@@ -26,7 +26,7 @@ class Profile extends Model
 
     public function profile_modules()
     {
-        return $this->belongsToMany(Module::class, 'module_permission_profile')->select('module_id','name');
+        return $this->belongsToMany(Module::class, 'module_permission_profile')->with('category');
     }
 
 }

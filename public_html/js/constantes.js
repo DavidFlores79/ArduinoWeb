@@ -25,7 +25,7 @@ const configuraciones = {
     titulo: 'Configuracion del Sistema',
 }
 
-const bitacora = {
+const logs = {
     titulo: 'Bitácora',
 }
 

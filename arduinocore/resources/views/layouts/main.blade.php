@@ -23,6 +23,8 @@
     <script src="{{ asset('js/constantes.js') }}"></script>
     <!-- Loading  -->
     <link href="{{ asset('css/loading.css') }}" rel="stylesheet">
+    <!-- DatePicker -->
+    <link href="{{ asset('css/jquery-ui-1.13.1/jquery-ui.css') }}" rel="stylesheet">
     <!-- Sweet Alert -->
     <script src="{{ asset('js/sweetalert2.1.2/sweetalert.min.js') }}"></script>
     <!-- Moment.js -->
@@ -35,27 +37,26 @@
 </head>
 
 <body ng-controller="@yield('ngController')">
+
+    <!-- Loading -->
+    <div class="loading d-none align-items-center justify-content-center " id="loading">
+        <div class="box">
+            <div class="out"></div>
+            <div class="mid"></div>
+            <div class="in"></div>
+            <p class="loading-legend">Cargando</p>
+        </div>
+    </div>
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="{{ url('home') }}">
+        <a class="navbar-brand" href="{{ url('/') }}">
             <img src="{{ asset('img/brand/arduino_logo.png') }}" alt="Arduino Logo">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ url('usuarios') }}">Usuarios <span class="sr-only">(current)</span></a>
-                </li>
-            </ul>
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ url('home') }}">Datos <span class="sr-only">(current)</span></a>
-                </li>
-            </ul>
-            <ul class="navbar-nav mx-auto">
-
-            </ul>
+            <ul class="navbar-nav mx-auto"></ul>
             <ul class="navbar-nav pr-3">
                 @guest
                 @if (Route::has('login'))

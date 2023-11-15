@@ -1,14 +1,14 @@
-var app = angular.module('usuarios', []);
+var app = angular.module('users', []);
 
 
-app.controller('usuarios', function ($scope, $http) {
+app.controller('users', function ($scope, $http) {
     $scope.dato = {};
     $scope.datos = [];
     $scope.createForm = {};
     $scope.editForm = {};
     
     $http({
-        url: 'get-usuarios',
+        url: 'get-users',
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -41,10 +41,10 @@ app.controller('usuarios', function ($scope, $http) {
     $scope.create = function () {
 
         $http({
-            url: 'usuarios/create',
+            url: 'users/create',
             method: 'POST',
             data: {
-                formulario_crear: 'usuarios_crear'
+                formulario_crear: 'users_crear'
             },
             headers: {
                 'Content-Type': 'application/json',
@@ -86,7 +86,7 @@ app.controller('usuarios', function ($scope, $http) {
         console.log('name:', $scope.createForm);
         // return;
         $http({
-            url: 'usuarios',
+            url: 'users',
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -144,10 +144,10 @@ app.controller('usuarios', function ($scope, $http) {
         
         console.log('EditForm', $scope.editForm);
         $http({
-            url: 'usuarios/edit',
+            url: 'users/edit',
             method: 'POST',
             data: {
-                formulario_editar: 'usuarios_editar'
+                formulario_editar: 'users_editar'
             },
             headers: {
                 'Content-Type': 'application/json',
@@ -183,7 +183,7 @@ app.controller('usuarios', function ($scope, $http) {
         $scope.editForm.horario_salida = $('#edit-salida').val();
         // console.log('EditForm', $scope.editForm); return
         $http({
-            url: `usuarios`,
+            url: `users`,
             method: 'PUT',
             data: $scope.editForm,
             headers: {
@@ -231,7 +231,7 @@ app.controller('usuarios', function ($scope, $http) {
         console.log('usuario: ', $scope.dato);
 
         $http({
-            url: `usuarios/${$scope.dato.id}`,
+            url: `users/${$scope.dato.id}`,
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

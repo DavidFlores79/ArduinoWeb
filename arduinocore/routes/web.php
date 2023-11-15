@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +25,7 @@ Route::middleware(['auth'])->group(function () {
     
     //usuarios
     Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('menu', [App\Http\Controllers\HomeController::class, 'getData'])->name('menu');
 
     //categories
     Route::get("categories", [App\Http\Controllers\CategoryController::class, "index"])->name("categories.index"); //categories
@@ -65,19 +67,24 @@ Route::middleware(['auth'])->group(function () {
     Route::put("permissions", [App\Http\Controllers\PermissionController::class, "update"])->name("permissions.update"); //permissions
     Route::delete("permissions/{id}", [App\Http\Controllers\PermissionController::class, "destroy"])->name("permissions.delete"); //profiles
     
-    Route::get('usuarios', [App\Http\Controllers\UserController::class, 'index']);
-    Route::get('get-usuarios', [App\Http\Controllers\UserController::class, 'getUsuarios']);
-    Route::post('usuarios/create', [App\Http\Controllers\UserController::class, 'create']);
-    Route::post('usuarios/edit', [App\Http\Controllers\UserController::class, 'edit']);
-    Route::post('usuarios', [App\Http\Controllers\UserController::class, 'store']);
-    Route::put('usuarios', [App\Http\Controllers\UserController::class, 'update']);
-    Route::delete("usuarios/{id}", [App\Http\Controllers\UserController::class, "destroy"]);
+    Route::get('users', [App\Http\Controllers\UserController::class, 'index']);
+    Route::get('get-users', [App\Http\Controllers\UserController::class, 'getUsuarios']);
+    Route::post('users/create', [App\Http\Controllers\UserController::class, 'create']);
+    Route::post('users/edit', [App\Http\Controllers\UserController::class, 'edit']);
+    Route::post('users', [App\Http\Controllers\UserController::class, 'store']);
+    Route::put('users', [App\Http\Controllers\UserController::class, 'update']);
+    Route::delete("users/{id}", [App\Http\Controllers\UserController::class, "destroy"]);
 
     Route::post('upload', [App\Http\Controllers\UploadController::class, 'store']);
     Route::delete('upload', [App\Http\Controllers\UploadController::class, 'delete']);
 
     //Roles
     Route::post("roles", [App\Http\Controllers\RoleController::class, "store"])->name("roles.store"); //profiles
+
+    //Bitacora
+    Route::get("logs", [App\Http\Controllers\LogController::class, "index"]); //Bitacora
+    Route::get("logs/get-data", [App\Http\Controllers\LogController::class, "getData"]); //Bitacora
+    Route::put("logs", [App\Http\Controllers\LogController::class, "updateLog"]); //Bitacora
     
 });
 

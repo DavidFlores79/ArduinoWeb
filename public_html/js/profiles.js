@@ -11,6 +11,7 @@ app.controller('profiles', function ($scope, $http) {
     $scope.modules = [];
     $scope.permissions = [];
     $scope.permissions_selected = [];
+    activarLoading();
     
     $http({
         url: 'profiles/get-data',
@@ -22,6 +23,7 @@ app.controller('profiles', function ($scope, $http) {
     }).then(
         function successCallback(response) {
             console.log(response);
+            desactivarLoading();
             $scope.data = response.data.data;
             $scope.codes = response.data.codes;
             $scope.modules = response.data.modules;
@@ -29,6 +31,7 @@ app.controller('profiles', function ($scope, $http) {
             console.log($scope.data);
         },
         function errorCallback(response) {
+            desactivarLoading();
             mostrarSwal(response);
         }
     );

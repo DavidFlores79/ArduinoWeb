@@ -42,7 +42,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function myProfile()
+    public function profile()
     {
         return $this->belongsTo(Profile::class, "profile_id");
     }
